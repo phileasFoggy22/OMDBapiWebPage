@@ -44,10 +44,10 @@ function listSearchresults(searchCriteria) {
             btn.className = "btn";
             btn.type = "button";
             btn.value = "More Detail";
-            let id = newobj1[i]["id"];
+            let id = newobj1[i]["imdbID"];
             btn.onclick = (function () {
                 return function () {
-                    //getPets(id);
+                    getMovieFocus(id);
                 }
             })(newobj1[i]["id"]);
             td4.appendChild(btn);
@@ -62,4 +62,11 @@ function listSearchresults(searchCriteria) {
         }
         document.getElementById("ResultsTable").appendChild(node);
     }
+}
+
+function getMovieFocus(id) {
+    sessionStorage.setItem('movieID', id);
+    //    var movies = [];
+    //    localStorage.set
+    window.location.href = "moviefocus.html";
 }

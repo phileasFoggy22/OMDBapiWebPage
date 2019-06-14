@@ -1,18 +1,31 @@
 const APIKey = "http://www.omdbapi.com/?i=tt3896198&apikey=19e5ba0a";
 
+function returnResults() {
+    if (sessionStorage.getItem("movieSearch") != null) {
+        listSearchresults(sessionStorage.getItem("movieSearch"));
+    }
+    if (localStorage.getItem("history") != null) {
+        console.log(localStorage.getItem("history"));
+        var movies = localStorage.getItem("history");
+        if (movies[0] != null) {
+            document.getElementById("MovieOne").src = movies;
+            console.log(movies[0]);
+        }
+
+    }
+}
+
 function SearchMovies() {
 
     let searchCriteria = document.getElementById("searchBox").value;
+    sessionStorage.setItem('movieSearch', searchCriteria);
     listSearchresults(searchCriteria);
 
 }
 
 function listSearchresults(searchCriteria) {
-    //    let req = new XMLHttpRequest();
-    //    req.open("GET", APIKey + "&s=" + searchCriteria);
-    //    req.send();
     makeRequest("GET", APIKey + "&s=" + searchCriteria, "").then((resolve) => {
-        console.log(resolve);
+
         var newobj1 = JSON.parse(resolve)["Search"];
         var node = document.createElement("TABLE");
         var tr = document.createElement('tr');
@@ -31,7 +44,7 @@ function listSearchresults(searchCriteria) {
         node.append(tr);
 
         for (var i = 0; i < newobj1.length; i++) {
-            console.log(newobj1[i]);
+
             var tr = document.createElement('tr');
             var td1 = document.createElement('td')
             td1.innerHTML = newobj1[i]["Title"];
@@ -66,9 +79,9 @@ function listSearchresults(searchCriteria) {
 }
 
 function getMovieFocus(id) {
+    //session storage for id carried to next page
     sessionStorage.setItem('movieID', id);
-    //    var movies = [];
-    //    localStorage.set
+
     window.location.href = "moviefocus.html";
 }
 

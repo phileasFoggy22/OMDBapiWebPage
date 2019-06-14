@@ -8,11 +8,12 @@ function SearchMovies() {
 }
 
 function listSearchresults(searchCriteria) {
-    let req = new XMLHttpRequest();
-    req.open("GET", APIKey + "&s=" + searchCriteria);
-    req.send();
-    req.onload = function () {
-        var newobj1 = JSON.parse(req.responseText)["Search"];
+    //    let req = new XMLHttpRequest();
+    //    req.open("GET", APIKey + "&s=" + searchCriteria);
+    //    req.send();
+    makeRequest("GET", APIKey + "&s=" + searchCriteria, "").then((resolve) => {
+        console.log(resolve);
+        var newobj1 = JSON.parse(resolve)["Search"];
         var node = document.createElement("TABLE");
         var tr = document.createElement('tr');
         var td1 = document.createElement('td');
@@ -61,7 +62,7 @@ function listSearchresults(searchCriteria) {
 
         }
         document.getElementById("ResultsTable").appendChild(node);
-    }
+    })
 }
 
 function getMovieFocus(id) {
@@ -69,4 +70,24 @@ function getMovieFocus(id) {
     //    var movies = [];
     //    localStorage.set
     window.location.href = "moviefocus.html";
+}
+
+function makeRequest(method, url, body) {
+    return new Promise(
+        (resolve, reject) => {
+            const req = new XMLHttpRequest();
+            req.onload = () => {
+                if (req.status >= 200 && req.status <= 299) {
+                    resolve(req.responseText);
+                } else {
+                    console.log(req.responseText)
+                    const reason = new Error("Rejected");
+                    reject(reason);
+                }
+            }
+            req.open(method, url);
+            req.setRequestHeader('Content-Type', 'application/json');
+            req.send(body);
+        });
+
 }

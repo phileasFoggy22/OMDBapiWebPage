@@ -12,6 +12,16 @@ function ShowMovie() {
             document.getElementById("movieRated").innerHTML = newobj1["Rated"];
 
             document.getElementById("movieImage").src = newobj1["Poster"];
+
+            //local storage for search history
+            if (localStorage.getItem("movieID") === null) {
+                var movies = [newobj1["Poster"]];
+                localStorage.setItem("history", movies);
+            } else {
+
+
+            }
+
         }
     })
 }

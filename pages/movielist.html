@@ -11,24 +11,21 @@
 </head>
 
 <body>
-    <form action="calculator2.html">
-        <div class="form-group">
-            <h1>Calculator</h1>
 
-            <h4>Number 1: <input type="text" id="num1"></h4>
-            <h4>Number 2: <input type="text" id="num2"></h4>
+    <div class="form-group">
+        <h1>Movie Searcher</h1>
 
-            <button class="btn btn-primary" id="plus" onclick="addNumbers()">+</button>
-            <button class="btn btn-success" id="subtract" onclick="subtract()">-</button>
-            <button class="btn btn-warning" id="divide" onclick="divide()">/</button>
-            <button class="btn btn-danger" id="multiply" onclick="multiply()">*</button>
+        <span>
+            <input type="text" id="searchBox">
+            <button class="btn btn-primary" id="plus" onclick="SearchMovies()">Search</button>
+        </span>
 
+    </div>
 
-            <h3> Result = <span id="result"></span></h3>
-        </div>
-    </form>
-
-
+    <div id="resultsPane">
+        <table id="ResultsTable">
+        </table>
+    </div>
 </body>
 
 </html>
